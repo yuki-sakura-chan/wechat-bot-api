@@ -1,0 +1,18 @@
+server:
+  port: 9881
+  servlet:
+    context-path: /
+
+logging:
+  level:
+    root: info
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  datasource:
+    url: jdbc:mysql://MySQLHost/webchatbot?serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF8&useSSL=false
+    username: username
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
