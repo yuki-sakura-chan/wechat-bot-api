@@ -2,17 +2,18 @@ package caiyucong.cn.bot.handler.impl;
 
 import caiyucong.cn.bot.domain.Payload;
 import caiyucong.cn.bot.domain.SingleMessage;
-import caiyucong.cn.bot.handler.ToMessageHandler;
+import caiyucong.cn.bot.handler.IsMentionedHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class ToMessageHandlerImpl implements ToMessageHandler {
+public class RuletkaHandler implements IsMentionedHandler {
+
 
     @Override
     public void messageReceivingAfter(Payload payload) {
-        log.info("收到来自个人的消息");
+        
     }
 
     @Override

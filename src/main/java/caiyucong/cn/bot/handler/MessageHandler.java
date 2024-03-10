@@ -7,14 +7,13 @@ public interface MessageHandler {
 
     void messageReceivingAfter(Payload payload);
 
-    void messageSendBefore(Payload payload);
-
     boolean messageSend(SingleMessage singleMessage);
 
-    void messageSendAfter(Payload payload);
-
-    default MessageHandler useHandler(Payload payload){
-        return this;
-    }
+    /**
+     * 匹配字符，优先选择容器中第一个处理器。
+     * @param content 消息内容
+     * @return boolean
+     */
+    boolean match(String content);
 
 }
