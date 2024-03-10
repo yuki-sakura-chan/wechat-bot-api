@@ -1,14 +1,16 @@
 package caiyucong.cn.bot.utils;
 
 import caiyucong.cn.bot.domain.Payload;
-import caiyucong.cn.bot.handler.*;
+import caiyucong.cn.bot.handler.IsMentionedHandler;
+import caiyucong.cn.bot.handler.MessageHandler;
+import caiyucong.cn.bot.handler.RoomMessageHandler;
+import caiyucong.cn.bot.handler.ToMessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Component
 public class MessageHandlerSelector {
@@ -30,9 +32,14 @@ public class MessageHandlerSelector {
         Object content = payload.getContent();
         MessageHandler messageHandler = null;
         if (content instanceof String) {
+            String message = content.toString();
+            int i = message.indexOf(" ");
+            if (i > 0) {
+                message = message.substring(i + 1);
+            }
             Map<String, ? extends MessageHandler> handlerMap = filter(payload);
             for (MessageHandler handler : handlerMap.values()) {
-                if (handler.match(content.toString())) {
+                if (handler.match(message)) {
                     messageHandler = handler;
                     break;
                 }

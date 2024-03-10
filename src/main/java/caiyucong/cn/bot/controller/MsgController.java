@@ -1,9 +1,9 @@
 package caiyucong.cn.bot.controller;
 
 import caiyucong.cn.bot.domain.Member;
+import caiyucong.cn.bot.domain.Message;
 import caiyucong.cn.bot.domain.Payload;
 import caiyucong.cn.bot.domain.R;
-import caiyucong.cn.bot.domain.SingleMessage;
 import caiyucong.cn.bot.handler.MessageHandler;
 import caiyucong.cn.bot.utils.MessageHandlerSelector;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 @RestController
@@ -45,9 +46,10 @@ public class MsgController {
             return R.notRespond();
         }
         messageHandler.messageReceivingAfter(payload);
-        SingleMessage singleMessage = new SingleMessage();
-        boolean flag = messageHandler.messageSend(singleMessage);
-        return flag ? R.success(singleMessage) : R.notRespond();
+        Message messageObject = new Message();
+        messageObject.setSingleMessages(new ArrayList<>());
+        boolean flag = messageHandler.messageSend(payload, messageObject);
+        return flag ? R.success(messageObject.getSingleMessages()) : R.notRespond();
     }
 
 }
