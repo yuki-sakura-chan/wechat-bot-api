@@ -37,7 +37,7 @@ public class Payload {
     /**
      * 消息的相关发送方数据, JSON String
      */
-    private String source;
+    private SourceData source;
 
     /**
      * 解析后的 source
@@ -54,14 +54,6 @@ public class Payload {
      */
     private String isSystemEvent;
 
-    public void setSource(String source) {
-        this.source = source;
-        long begin = System.currentTimeMillis();
-        SourceData sourceData = SourceData.buildSource(source);
-        long end = System.currentTimeMillis();
-        log.info("json解析花了：{}ms", end - begin);
-        obj = sourceData;
-    }
 
     public String getMessage(){
         if (content instanceof String) {
