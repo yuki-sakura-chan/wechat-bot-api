@@ -5,6 +5,7 @@ import caiyucong.cn.bot.domain.Message;
 import caiyucong.cn.bot.domain.Payload;
 import caiyucong.cn.bot.domain.R;
 import caiyucong.cn.bot.handler.MessageHandler;
+import caiyucong.cn.bot.handler.SystemMessageHandler;
 import caiyucong.cn.bot.utils.MessageHandlerSelector;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,20 @@ public class MsgController {
 
     private final MessageHandlerSelector messageHandlerSelector;
 
+    private final SystemMessageHandler systemMessageHandler;
+
     @Autowired
-    public MsgController(MessageHandlerSelector messageHandlerSelector) {
+    public MsgController(MessageHandlerSelector messageHandlerSelector, SystemMessageHandler systemMessageHandler) {
         this.messageHandlerSelector = messageHandlerSelector;
+        this.systemMessageHandler = systemMessageHandler;
     }
 
     @PostMapping("v1")
     public R<?> v1(Payload payload) {
+        if ("1".equals(payload.getIsSystemEvent())) {
+            systemMessageHandler.handler(payload.getContent().toString());
+            return R.notRespond();
+        }
         String message = payload.getMessage();
         Member from = payload.getObj().getFrom();
         String name = "你自己";

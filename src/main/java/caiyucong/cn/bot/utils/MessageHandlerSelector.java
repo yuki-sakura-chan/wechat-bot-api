@@ -1,12 +1,12 @@
 package caiyucong.cn.bot.utils;
 
 import caiyucong.cn.bot.domain.Payload;
-import caiyucong.cn.bot.handler.IsMentionedHandler;
-import caiyucong.cn.bot.handler.MessageHandler;
-import caiyucong.cn.bot.handler.RoomMessageHandler;
-import caiyucong.cn.bot.handler.ToMessageHandler;
+import caiyucong.cn.bot.handler.*;
+import caiyucong.cn.bot.handler.impl.AuthenticationHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -17,9 +17,19 @@ public class MessageHandlerSelector {
 
     private final ApplicationContext applicationContext;
 
+    private final RedisTemplate<String,Object> redisTemplate;
+
+    private AuthenticationHandler authenticationHandler;
+
     @Autowired
-    public MessageHandlerSelector(ApplicationContext applicationContext) {
+    public void setAuthenticationHandler(@Nullable AuthenticationHandler authenticationHandler) {
+        this.authenticationHandler = authenticationHandler;
+    }
+
+    @Autowired
+    public MessageHandlerSelector(ApplicationContext applicationContext, RedisTemplate<String, Object> redisTemplate) {
         this.applicationContext = applicationContext;
+        this.redisTemplate = redisTemplate;
     }
 
     /**
@@ -29,17 +39,19 @@ public class MessageHandlerSelector {
      * @return {@link MessageHandler}
      */
     public MessageHandler getHandler(Payload payload) {
+        if (authenticationHandler == null) {
+            authenticationHandler = new AuthenticationHandlerImpl(redisTemplate);
+        }
         Object content = payload.getContent();
         MessageHandler messageHandler = null;
         if (content instanceof String) {
             String message = content.toString();
-            int i = message.indexOf(" ");
-            if (i > 0) {
-                message = message.substring(i + 1);
-            }
+            String loginUserName = authenticationHandler.getLoginUser().getPayload().getName();
+            message = message.replaceAll(" ", " ");
+            String matchMessage = message.replaceAll(String.format("^@%s\\s+|^@%s", loginUserName, loginUserName), "");
             Map<String, ? extends MessageHandler> handlerMap = filter(payload);
             for (MessageHandler handler : handlerMap.values()) {
-                if (handler.match(message)) {
+                if (handler.match(matchMessage)) {
                     messageHandler = handler;
                     break;
                 }
