@@ -1,6 +1,7 @@
 package caiyucong.cn.bot.domain;
 
 import caiyucong.cn.bot.exception.RevolverException;
+import caiyucong.cn.bot.exception.WechatException;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -22,8 +23,9 @@ public class Revolver implements Serializable {
      * 装载子弹
      * @param number 子弹数
      * @param magazineMax 弹匣最大值
+     * @throws WechatException {@link WechatException}
      */
-    public void loadBullets(Integer number, Integer magazineMax) {
+    public void loadBullets(Integer number, Integer magazineMax) throws WechatException {
         if (number > magazineMax) {
             throw new RevolverException("子弹数量不能大于弹匣的容量");
         }
