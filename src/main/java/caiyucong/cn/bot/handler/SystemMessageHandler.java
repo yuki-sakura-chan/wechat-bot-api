@@ -1,7 +1,9 @@
 package caiyucong.cn.bot.handler;
 
+import caiyucong.cn.bot.domain.Payload;
+
 public interface SystemMessageHandler {
 
-    void handler(String content);
+    void handler(Payload payload);
 
 }

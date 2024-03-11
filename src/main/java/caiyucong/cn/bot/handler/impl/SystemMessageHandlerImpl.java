@@ -1,6 +1,7 @@
 package caiyucong.cn.bot.handler.impl;
 
 import caiyucong.cn.bot.domain.Member;
+import caiyucong.cn.bot.domain.Payload;
 import caiyucong.cn.bot.handler.AuthenticationHandler;
 import caiyucong.cn.bot.handler.SystemMessageHandler;
 import com.google.gson.Gson;
@@ -29,19 +30,19 @@ public class SystemMessageHandlerImpl implements SystemMessageHandler {
     }
 
     @Override
-    public void handler(String content) {
-        JsonObject jsonObject = JsonParser.parseString(content).getAsJsonObject();
+    public void handler(Payload payload) {
+        JsonObject jsonObject = JsonParser.parseString(payload.getContent().toString()).getAsJsonObject();
+        String type = payload.getType();
         if (authenticationHandler == null) {
             authenticationHandler = new AuthenticationHandlerImpl(redisTemplate);
         }
-        String event = jsonObject.get("event").getAsString();
-        if ("login".equals(event)) {
+        if ("system_event_login".equals(type)) {
             JsonObject userJson = jsonObject.get("user").getAsJsonObject();
             Gson gson = new Gson();
             Member member = gson.fromJson(userJson, Member.class);
             authenticationHandler.login(member);
         }
-        if ("logout".equals(event)) {
+        if ("system_event_logout".equals(type)) {
             authenticationHandler.logout();
         }
     }

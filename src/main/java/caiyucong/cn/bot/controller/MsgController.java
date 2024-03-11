@@ -34,7 +34,7 @@ public class MsgController {
     @PostMapping("v1")
     public R<?> v1(Payload payload) {
         if ("1".equals(payload.getIsSystemEvent())) {
-            systemMessageHandler.handler(payload.getContent().toString());
+            systemMessageHandler.handler(payload);
             return R.notRespond();
         }
         String message = payload.getMessage();
