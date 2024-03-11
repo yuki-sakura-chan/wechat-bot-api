@@ -50,9 +50,14 @@ public class Payload {
     private String isMentioned;
 
     /**
-     * 是否是来自自己的消息
+     * 是否来自系统的消息
      */
     private String isSystemEvent;
+
+    /**
+     * 是否是来自自己的消息
+     */
+    private String isMsgFromSelf;
 
     public void setSource(String source) {
         this.source = source;
