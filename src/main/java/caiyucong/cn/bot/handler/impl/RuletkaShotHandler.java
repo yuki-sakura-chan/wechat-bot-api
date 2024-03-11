@@ -37,9 +37,9 @@ public class RuletkaShotHandler implements RoomMessageHandler {
         List<Boolean> magazine = revolver.getMagazine();
         if (!magazine.contains(Boolean.TRUE)) {
             singleMessage.addMessage("弹匣打空，游戏结束！");
-            // TODO 这个方法没有生效，太晚了，睡一觉再排查问题吧
             redisTemplate.delete(key);
         }
+        // 睡一觉清醒了，tmd这里还set了一下，靠！
         redisTemplate.opsForValue().set("revolver", revolver);
         return true;
     }
