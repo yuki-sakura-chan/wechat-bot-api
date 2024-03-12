@@ -54,8 +54,17 @@ public class RuletkaHandler implements IsMentionedHandler {
             return false;
         }
         String[] split = content.split("\\s+");
-        number = Integer.valueOf(split[1]);
-        magazineMax = Integer.valueOf(split[2]);
-        return true;
+        if (split.length == 1) {
+            return true;
+        }
+        if (split.length == 2 && "结束".equals(split[1])) {
+            return true;
+        }
+        if (split.length == 3) {
+            number = Integer.valueOf(split[1]);
+            magazineMax = Integer.valueOf(split[2]);
+            return true;
+        }
+        return false;
     }
 }

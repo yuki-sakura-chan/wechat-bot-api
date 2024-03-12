@@ -2,10 +2,11 @@ package caiyucong.cn.bot.domain;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class MemberInfo {
+public class MemberInfo implements Serializable {
 
 
     private String id;

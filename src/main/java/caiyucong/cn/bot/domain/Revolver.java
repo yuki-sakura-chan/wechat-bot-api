@@ -26,8 +26,16 @@ public class Revolver implements Serializable {
      * @throws WechatException {@link WechatException}
      */
     public void loadBullets(Integer number, Integer magazineMax) throws WechatException {
+        if (number == 0 || magazineMax < 6 || magazineMax > 30) {
+            throw new RevolverException("弹匣容量至少是6，最多是30，子弹数量至少是1");
+        }
         if (number > magazineMax) {
             throw new RevolverException("子弹数量不能大于弹匣的容量");
+        }
+        Double doubleNumber = Double.valueOf(number);
+        Double doubleMagazine = Double.valueOf(magazineMax);
+        if (doubleNumber / doubleMagazine < 0.16) {
+            throw new RevolverException("不合理的弹容量比例");
         }
         magazine = new ArrayList<>();
         index = 0;
