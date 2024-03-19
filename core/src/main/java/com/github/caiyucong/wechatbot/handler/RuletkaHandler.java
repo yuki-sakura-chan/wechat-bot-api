@@ -4,7 +4,6 @@ import com.github.caiyucong.wechatbot.domain.Message;
 import com.github.caiyucong.wechatbot.domain.Payload;
 import com.github.caiyucong.wechatbot.domain.Revolver;
 import com.github.caiyucong.wechatbot.exception.WechatException;
-import com.github.caiyucong.wechatbot.handler.IsMentionedHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

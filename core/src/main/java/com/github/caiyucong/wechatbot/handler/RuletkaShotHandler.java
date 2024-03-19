@@ -3,7 +3,6 @@ package com.github.caiyucong.wechatbot.handler;
 import com.github.caiyucong.wechatbot.domain.Message;
 import com.github.caiyucong.wechatbot.domain.Payload;
 import com.github.caiyucong.wechatbot.domain.Revolver;
-import com.github.caiyucong.wechatbot.handler.RoomMessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
