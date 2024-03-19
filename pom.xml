@@ -8,11 +8,16 @@
         <version>3.2.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>caiyucong.cn</groupId>
+    <groupId>com.github.caiyucong.wechatbot</groupId>
     <artifactId>bot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>bot</name>
     <description>bot</description>
+    <modules>
+        <module>framework</module>
+        <module>core</module>
+    </modules>
     <properties>
         <java.version>21</java.version>
     </properties>

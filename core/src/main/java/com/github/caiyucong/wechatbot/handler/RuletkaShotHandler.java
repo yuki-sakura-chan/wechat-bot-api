@@ -1,4 +1,4 @@
-package com.github.caiyucong.wechatbot.handler.impl;
+package com.github.caiyucong.wechatbot.handler;
 
 import com.github.caiyucong.wechatbot.domain.Message;
 import com.github.caiyucong.wechatbot.domain.Payload;
