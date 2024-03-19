@@ -1,9 +1,8 @@
 package com.github.caiyucong.wechatbot.utils;
 
 import com.github.caiyucong.wechatbot.domain.Payload;
-import caiyucong.cn.bot.handler.*;
-import com.github.caiyucong.wechatbot.handler.impl.AuthenticationHandlerImpl;
 import com.github.caiyucong.wechatbot.handler.*;
+import com.github.caiyucong.wechatbot.handler.impl.AuthenticationHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
